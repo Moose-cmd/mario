@@ -14,16 +14,6 @@
 
 <script type="text/javascript">
 
-    function hitBomb (player, bomb)
-    {
-        this.physics.pause();
-
-        player.setTint(0xff0000);
-
-        player.anims.play('turn');
-
-        gameOver = true;
-    }
 
 
 
@@ -51,7 +41,9 @@
 
     function preload ()
     {
-        this.load.audio('song', 'assets/CatAstroPhi_shmup_normal.wav')
+        this.load.audio('bomb', 'assets/399303__deleted-user-5405837__explosion-012.mp3')
+        this.load.audio('star sound', 'assets/zapThreeToneUp.ogg');
+        this.load.audio('song', 'assets/CatAstroPhi_shmup_normal.wav');
         this.load.image('sky', 'assets/sky.png');
         this.load.image('ground', 'assets/platform.png');
         this.load.image('star', 'assets/star.png');
@@ -123,15 +115,23 @@
         this.physics.add.overlap(player, stars, collectStar, null, this);
         scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
         music = this.sound.add ('song');
+        music.setLoop(true); // loop: true/false
         music.play();
+        music = this.sound.add ('star sound');
+
+
+
     }
+
+
+
 
     function collectStar (player, star)
     {
         star.disableBody(true, true);
         score += 10;
         scoreText.setText('Score: ' + score);
-
+        music.play();
         if (stars.countActive(true) === 0)
         {
             stars.children.iterate(function (child) {
@@ -155,6 +155,19 @@
 
         }
 
+    }
+
+    function hitBomb (player, bomb)
+    {
+        music = this.sound.add ('bomb');
+        music.play();
+        this.physics.pause();
+
+        player.setTint(0xff0000);
+
+        player.anims.play('turn');
+
+        gameOver = true;
     }
 
 
