@@ -41,9 +41,12 @@
 
     function preload ()
     {
+        var songs = ['assets/bensound-dubstep.mp3', 'assets/bensound-endlessmotion.mp3', 'assets/bensound-summer.mp3', 'assets/CatAstroPhi_shmup_normal.wav'];
+        var randomsong = Math.floor(Math.random() * 4);  // 0 ~ 3
+
         this.load.audio('bomb', 'assets/399303__deleted-user-5405837__explosion-012.mp3')
         this.load.audio('star sound', 'assets/zapThreeToneUp.ogg');
-        this.load.audio('song', 'assets/CatAstroPhi_shmup_normal.wav');
+        this.load.audio('song', songs[randomsong]);
         this.load.image('sky', 'assets/sky.png');
         this.load.image('ground', 'assets/platform.png');
         this.load.image('star', 'assets/star.png');
